@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "site": "taliferro-email-signature-builder",
+    "public": "dist/email-signature-builder/browser",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}

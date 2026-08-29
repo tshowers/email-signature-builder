@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { EmailSignatureBuilderComponent } from './signature-builder/email-signature-builder.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [EmailSignatureBuilderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
