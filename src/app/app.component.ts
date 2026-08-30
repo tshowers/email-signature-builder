@@ -9,4 +9,5 @@ import { EmailSignatureBuilderComponent } from './signature-builder/email-signat
 })
 export class AppComponent {
   title = 'email-signature-builder';
+  readonly year = new Date().getFullYear();
 }
