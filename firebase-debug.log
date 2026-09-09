@@ -1,0 +1,109 @@
+[debug] [2026-09-09T08:26:59.177Z] ----------------------------------------------------------------------
+[debug] [2026-09-09T08:26:59.179Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only hosting
+[debug] [2026-09-09T08:26:59.179Z] CLI Version:   15.15.0
+[debug] [2026-09-09T08:26:59.179Z] Platform:      darwin
+[debug] [2026-09-09T08:26:59.180Z] Node Version:  v22.13.1
+[debug] [2026-09-09T08:26:59.180Z] Time:          Wed Sep 09 2026 01:26:59 GMT-0700 (Pacific Daylight Time)
+[debug] [2026-09-09T08:26:59.180Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-09-09T08:27:00.089Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-09-09T08:27:00.090Z] > authorizing via signed-in user (ty.showers@gmail.com)
+[debug] [2026-09-09T08:27:00.090Z] [iam] checking project taliferrotech for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2026-09-09T08:27:00.091Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:00.091Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:00.092Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/taliferrotech:testIamPermissions [none]
+[debug] [2026-09-09T08:27:00.092Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/taliferrotech:testIamPermissions  x-goog-user-project=taliferrotech
+[debug] [2026-09-09T08:27:00.092Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/taliferrotech:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-09-09T08:27:00.307Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/taliferrotech:testIamPermissions 200
+[debug] [2026-09-09T08:27:00.307Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/taliferrotech:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2026-09-09T08:27:00.307Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:00.307Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:00.308Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/taliferrotech [none]
+[debug] [2026-09-09T08:27:00.581Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/taliferrotech 200
+[debug] [2026-09-09T08:27:00.581Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/taliferrotech {"projectId":"taliferrotech","projectNumber":"633736143723","displayName":"TaliferroTech","name":"projects/taliferrotech","resources":{"hostingSite":"taliferrotech","locationId":"us-central"},"state":"ACTIVE","labels":{"firebase":"enabled","firebaseworkflows/environment":"production"},"etag":"1_ca656f64-2674-418e-956d-3a4896c51359"}
+[info] 
+[info] === Deploying to 'taliferrotech'...
+[info] 
+[info] i  deploying hosting 
+[debug] [2026-09-09T08:27:00.584Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:00.584Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:00.584Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/taliferro-email-signature-builder/versions [none]
+[debug] [2026-09-09T08:27:00.584Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/taliferro-email-signature-builder/versions {"status":"CREATED","labels":{"deployment-tool":"cli-firebase"}}
+[debug] [2026-09-09T08:27:01.611Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/taliferro-email-signature-builder/versions 200
+[debug] [2026-09-09T08:27:01.611Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/taliferro-email-signature-builder/versions {"name":"projects/633736143723/sites/taliferro-email-signature-builder/versions/bd7852a818e95253","status":"CREATED","config":{},"labels":{"deployment-tool":"cli-firebase"}}
+[info] i  hosting[taliferro-email-signature-builder]: beginning deploy... 
+[info] i  hosting[taliferro-email-signature-builder]: found 12 files in dist/email-signature-builder/browser 
+[debug] [2026-09-09T08:27:01.619Z] [hosting] uploading with 200 concurrency
+[debug] [2026-09-09T08:27:01.675Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:01.675Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:01.675Z] [hosting] hash cache [ZGlzdC9lbWFpbC1zaWduYXR1cmUtYnVpbGRlci9icm93c2Vy] stored for 12 files
+[debug] [2026-09-09T08:27:01.676Z] [hosting][hash queue][FINAL] {"max":53,"min":4,"avg":10.416666666666666,"active":0,"complete":12,"success":12,"errored":0,"retried":0,"total":12,"elapsed":56}
+[debug] [2026-09-09T08:27:01.676Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/633736143723/sites/taliferro-email-signature-builder/versions/bd7852a818e95253:populateFiles [none]
+[debug] [2026-09-09T08:27:01.676Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/633736143723/sites/taliferro-email-signature-builder/versions/bd7852a818e95253:populateFiles {"files":{"/styles-E6TU3MDH.css":"a42748f94824e4ed99d43d46c825e04a6b7e528ee97ceef54277a84e60a91426","/favicon.png":"0ad35f6ba250f136798a99243497e8dfab99451ba9652f154c27449e38f46754","/index.html":"a9ef9d30e76a44b0ec5757866fda700a8c8329bc9e009a940509c2935e1e300a","/assets/version.json":"6ab2a49ac3b78f11a39215f78e577772858b178d1ba82ba1eaba43c937510e62","/brand/logo-icon.png":"d03c58b058113ea454d50716c9313f955b4a325f29af4c85f1f0aa41d18ce565","/polyfills-5CFQRCPP.js":"02fae82bf075da43b23af9fc7cf0bf387843c13dfdc835f78df7bd29c1d072ba","/brand/card.webp":"f22b1d3d101df63c7cd7f69ff0a33fbf05871e901dc247bf882926593f89271f","/favicon-512.png":"a44b9f42daed0e1e680d27c47384558abcbb94f584ed628375c2a8aa28d43365","/brand/hero.webp":"7bed151949a93692bbac056293a112df2a3143ee75d7346e2d9b4d2784f209d1","/outreach/email-signature-builder.png":"a4a4d31019a0e705d0dc8f5e481c9e450810f783e6a56ee0224c3303a178e5ee","/main-3P24BNYL.js":"dcbc06585b6c6174ecf3739f8e18c6802a029b0c6c2afeb70b682a04384e91f2","/brand/logo.png":"6dc50a4f1cde5c9c48bdb0c218a6b1127b2fcc3499b8144517ee2752ae0ff8a4"}}
+[debug] [2026-09-09T08:27:02.026Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/633736143723/sites/taliferro-email-signature-builder/versions/bd7852a818e95253:populateFiles 200
+[debug] [2026-09-09T08:27:02.026Z] <<< [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/633736143723/sites/taliferro-email-signature-builder/versions/bd7852a818e95253:populateFiles {"uploadRequiredHashes":["6ab2a49ac3b78f11a39215f78e577772858b178d1ba82ba1eaba43c937510e62","a9ef9d30e76a44b0ec5757866fda700a8c8329bc9e009a940509c2935e1e300a","dcbc06585b6c6174ecf3739f8e18c6802a029b0c6c2afeb70b682a04384e91f2","a42748f94824e4ed99d43d46c825e04a6b7e528ee97ceef54277a84e60a91426"],"uploadUrl":"https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files"}
+[debug] [2026-09-09T08:27:02.026Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:02.027Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:02.027Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:02.027Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:02.027Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:02.027Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:02.027Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:02.027Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:02.028Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/6ab2a49ac3b78f11a39215f78e577772858b178d1ba82ba1eaba43c937510e62 [none]
+[debug] [2026-09-09T08:27:02.028Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/6ab2a49ac3b78f11a39215f78e577772858b178d1ba82ba1eaba43c937510e62 [stream]
+[debug] [2026-09-09T08:27:02.030Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/a9ef9d30e76a44b0ec5757866fda700a8c8329bc9e009a940509c2935e1e300a [none]
+[debug] [2026-09-09T08:27:02.030Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/a9ef9d30e76a44b0ec5757866fda700a8c8329bc9e009a940509c2935e1e300a [stream]
+[debug] [2026-09-09T08:27:02.031Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/dcbc06585b6c6174ecf3739f8e18c6802a029b0c6c2afeb70b682a04384e91f2 [none]
+[debug] [2026-09-09T08:27:02.031Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/dcbc06585b6c6174ecf3739f8e18c6802a029b0c6c2afeb70b682a04384e91f2 [stream]
+[debug] [2026-09-09T08:27:02.033Z] >>> [apiv2][query] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/a42748f94824e4ed99d43d46c825e04a6b7e528ee97ceef54277a84e60a91426 [none]
+[debug] [2026-09-09T08:27:02.033Z] >>> [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/a42748f94824e4ed99d43d46c825e04a6b7e528ee97ceef54277a84e60a91426 [stream]
+[debug] [2026-09-09T08:27:02.034Z] [hosting][populate queue][FINAL] {"max":353,"min":353,"avg":353,"active":0,"complete":1,"success":1,"errored":0,"retried":0,"total":1,"elapsed":360}
+[debug] [2026-09-09T08:27:02.034Z] [hosting] uploads queued: 4
+[debug] [2026-09-09T08:27:02.825Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/6ab2a49ac3b78f11a39215f78e577772858b178d1ba82ba1eaba43c937510e62 200
+[debug] [2026-09-09T08:27:02.826Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/6ab2a49ac3b78f11a39215f78e577772858b178d1ba82ba1eaba43c937510e62 [stream]
+[debug] [2026-09-09T08:27:02.984Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/dcbc06585b6c6174ecf3739f8e18c6802a029b0c6c2afeb70b682a04384e91f2 200
+[debug] [2026-09-09T08:27:02.984Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/dcbc06585b6c6174ecf3739f8e18c6802a029b0c6c2afeb70b682a04384e91f2 [stream]
+[debug] [2026-09-09T08:27:03.024Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/a9ef9d30e76a44b0ec5757866fda700a8c8329bc9e009a940509c2935e1e300a 200
+[debug] [2026-09-09T08:27:03.024Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/a9ef9d30e76a44b0ec5757866fda700a8c8329bc9e009a940509c2935e1e300a [stream]
+[debug] [2026-09-09T08:27:03.393Z] <<< [apiv2][status] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/a42748f94824e4ed99d43d46c825e04a6b7e528ee97ceef54277a84e60a91426 200
+[debug] [2026-09-09T08:27:03.393Z] <<< [apiv2][body] POST https://upload-firebasehosting.googleapis.com/upload/sites/taliferro-email-signature-builder/versions/bd7852a818e95253/files/a42748f94824e4ed99d43d46c825e04a6b7e528ee97ceef54277a84e60a91426 [stream]
+[debug] [2026-09-09T08:27:03.393Z] [hosting][upload queue][FINAL] {"max":1366,"min":800,"avg":1030,"active":0,"complete":4,"success":4,"errored":0,"retried":0,"total":4,"elapsed":1367}
+[info] i  hosting: upload complete 
+[info] ✔  hosting[taliferro-email-signature-builder]: file upload complete 
+[debug] [2026-09-09T08:27:03.393Z] [hosting] deploy completed after 1781ms
+[debug] [2026-09-09T08:27:03.393Z] [
+  {
+    "config": {
+      "site": "taliferro-email-signature-builder",
+      "public": "dist/email-signature-builder/browser",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    "version": "projects/633736143723/sites/taliferro-email-signature-builder/versions/bd7852a818e95253"
+  }
+]
+[info] i  hosting[taliferro-email-signature-builder]: finalizing version... 
+[debug] [2026-09-09T08:27:03.395Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:03.396Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:03.396Z] >>> [apiv2][query] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/taliferro-email-signature-builder/versions/bd7852a818e95253 updateMask=status%2Cconfig
+[debug] [2026-09-09T08:27:03.396Z] >>> [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/taliferro-email-signature-builder/versions/bd7852a818e95253 {"status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]}}
+[debug] [2026-09-09T08:27:03.771Z] <<< [apiv2][status] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/taliferro-email-signature-builder/versions/bd7852a818e95253 200
+[debug] [2026-09-09T08:27:03.771Z] <<< [apiv2][body] PATCH https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/taliferro-email-signature-builder/versions/bd7852a818e95253 {"name":"projects/633736143723/sites/taliferro-email-signature-builder/versions/bd7852a818e95253","status":"FINALIZED","config":{"rewrites":[{"glob":"**","path":"/index.html"}]},"labels":{"deployment-tool":"cli-firebase"},"createTime":"2026-09-09T08:27:01.113956Z","createUser":{"email":"ty.showers@gmail.com"},"finalizeTime":"2026-09-09T08:27:03.659159Z","finalizeUser":{"email":"ty.showers@gmail.com"}}
+[debug] [2026-09-09T08:27:03.772Z] [hosting] finalized version for taliferro-email-signature-builder:[object Object]
+[info] ✔  hosting[taliferro-email-signature-builder]: version finalized 
+[info] i  hosting[taliferro-email-signature-builder]: releasing new version... 
+[debug] [2026-09-09T08:27:03.772Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:03.773Z] Checked if tokens are valid: true, expires at: 1788944556431
+[debug] [2026-09-09T08:27:03.773Z] >>> [apiv2][query] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/taliferro-email-signature-builder/channels/live/releases versionName=projects%2F633736143723%2Fsites%2Ftaliferro-email-signature-builder%2Fversions%2Fbd7852a818e95253
+[debug] [2026-09-09T08:27:03.773Z] >>> [apiv2][body] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/taliferro-email-signature-builder/channels/live/releases {}
+[debug] [2026-09-09T08:27:04.201Z] <<< [apiv2][status] POST https://firebasehosting.googleapis.com/v1beta1/projects/-/sites/taliferro-email-signature-builder/channels/live/releases 200
