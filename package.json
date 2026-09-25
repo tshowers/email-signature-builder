@@ -1,12 +1,15 @@
 {
   "name": "email-signature-builder",
-  "version": "0.0.0",
+  "version": "2026.9.24-build.2",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "prebuild": "node scripts/update-build-version.mjs",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadless",
+    "typecheck": "tsc -p tsconfig.app.json --noEmit --pretty false",
     "serve:ssr:email-signature-builder": "node dist/email-signature-builder/server/server.mjs"
   },
   "private": true,

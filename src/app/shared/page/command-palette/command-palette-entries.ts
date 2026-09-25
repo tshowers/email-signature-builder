@@ -17,6 +17,7 @@ export const COMMAND_PALETTE_ENTRIES: CommandPaletteEntry[] = [
   { id: 'app-todd', label: 'Ask TODD', group: 'Other Apps', path: 'https://ask.taliferro.tech', icon: 'assets/find/entities/todd/logo-bw-icon.png', keywords: ['todd', 'ask todd', 'assistant', 'chat'] },
   { id: 'app-docs', label: 'Docs', group: 'Other Apps', path: 'https://docs.taliferro.tech', icon: 'assets/find/entities/docs/logo-bw-icon.png', keywords: ['docs', 'documents', 'proposals', 'contracts'] },
   { id: 'app-find', label: 'Find', group: 'Other Apps', path: 'https://find.taliferro.tech', icon: 'assets/find/entities/find/logo-bw-icon.png', keywords: ['find', 'ask a question'] },
+  { id: 'app-image-creator', label: 'Image Creator', group: 'Other Apps', path: 'https://images.taliferro.tech', icon: 'assets/find/entities/image-creator/logo-bw-icon.svg', keywords: ['image creator', 'images', 'generate image', 'logo', 'icon', 'banner'] },
   { id: 'app-lead-vault', label: 'Lead Vault', group: 'Other Apps', path: 'https://lead-vault.taliferro.tech', icon: 'assets/find/entities/lead-vault/logo-bw-icon.png', keywords: ['lead vault', 'leads', 'purchased leads'] },
   { id: 'app-moves', label: 'Moves', group: 'Other Apps', path: 'https://moves.taliferro.tech', icon: 'assets/find/entities/moves/logo-bw-icon.png', keywords: ['moves', 'tasks', 'projects', 'to-dos'] },
   { id: 'app-network', label: 'Network', group: 'Other Apps', path: 'https://network.taliferro.tech', icon: 'assets/find/entities/network/logo-bw-icon.png', keywords: ['network', 'contacts', 'crm', 'relationships'] },
