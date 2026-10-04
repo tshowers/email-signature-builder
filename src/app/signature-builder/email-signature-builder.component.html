@@ -1,145 +1,150 @@
-<div class="signature-page" data-track-section="Email Signature Builder" [style.--signature-accent]="form.controls.accentColor.value">
-  <section class="signature-shell">
-    <div class="signature-layout">
-      <div class="signature-wizard">
-        <p class="signature-eyebrow">TODD public tools</p>
-        <div class="signature-header-row">
-          <div>
-            <h1>Email Signature Builder</h1>
-            <p class="signature-intro">Build a polished signature fast, then copy the HTML or download it for the email platform you use.</p>
-          </div>
-          <img src="/outreach/email-signature-builder.png" class="signature-hero" alt="TODD email signature builder" />
-        </div>
-        <form [formGroup]="form" class="signature-form">
-          <div class="signature-grid">
-            <label>
-              <span>Full name</span>
-              <input class="form-control" type="text" formControlName="fullName" />
-            </label>
-            <label>
-              <span>Title</span>
-              <input class="form-control" type="text" formControlName="title" />
-            </label>
-            <label class="signature-grid__full">
-              <span>Company</span>
-              <input class="form-control" type="text" formControlName="company" />
-            </label>
-            <label>
-              <span>Phone</span>
-              <input class="form-control" type="text" formControlName="phone" />
-            </label>
-            <label>
-              <span>Email</span>
-              <input class="form-control" type="email" formControlName="email" />
-            </label>
-            <label>
-              <span>Website</span>
-              <input class="form-control" type="text" formControlName="website" />
-            </label>
-            <label>
-              <span>LinkedIn</span>
-              <input class="form-control" type="text" formControlName="linkedin" />
-            </label>
-            <label>
-              <span>Template</span>
-              <select class="form-select" formControlName="template" data-track-cta="Signature Template Picker">
-                <option *ngFor="let template of templates" [value]="template.key">{{ template.label }}</option>
-              </select>
-              <small class="signature-help">{{ selectedTemplateDescription }}</small>
-            </label>
-            <label>
-              <span>Accent color</span>
-              <input type="color" formControlName="accentColor" class="signature-color-input" data-track-cta="Signature Accent Color" />
-            </label>
-            <label class="signature-grid__full">
-              <span>Tagline</span>
-              <input class="form-control" type="text" formControlName="tagline" />
-            </label>
-            <label class="signature-checkbox signature-grid__full">
-              <input type="checkbox" formControlName="includeCta" />
-              <span>Include a call-to-action button</span>
-            </label>
-            <label *ngIf="form.controls.includeCta.value">
-              <span>CTA label</span>
-              <input class="form-control" type="text" formControlName="ctaLabel" />
-            </label>
-            <label *ngIf="form.controls.includeCta.value">
-              <span>CTA link</span>
-              <input class="form-control" type="text" formControlName="ctaUrl" />
-            </label>
-            <div class="signature-grid__full">
-              <span>Logo upload</span>
-              <label class="signature-dropzone" [class.signature-dropzone--active]="isDragActive" [class.signature-dropzone--busy]="uploadInFlight" data-track-cta="Signature Logo Upload" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
-                <input class="signature-dropzone__input" type="file" accept="image/*" (change)="onLogoSelected($event)" />
-                <strong>{{ uploadInFlight ? 'Uploading logo...' : 'Drop logo or browse' }}</strong>
-                <span>PNG, JPG, WEBP, GIF, or SVG up to 2 MB.</span>
-                <small *ngIf="uploadedLogoName">{{ uploadedLogoName }}</small>
-              </label>
-              <small class="signature-help" *ngIf="uploadMessage">Hosted logo URL: {{ uploadMessage }}</small>
-            </div>
-          </div>
-        </form>
-        <div class="signature-swatches">
-          <button *ngFor="let color of colorPresets" type="button" class="signature-swatch" [style.background]="color" (click)="choosePreset(color)" [class.active]="form.controls.accentColor.value === color" [attr.data-track-cta]="'Signature Swatch ' + color"></button>
-        </div>
-        <div class="signature-actions">
-          <button type="button" class="signature-button signature-button--primary" data-track-cta="Signature Copy HTML" (click)="copyHtml()">Copy HTML</button>
-          <button type="button" class="signature-button signature-button--ghost" data-track-cta="Signature Download HTML" (click)="downloadHtml()">Download HTML</button>
-          <button *ngIf="uploadedLogoDataUrl" type="button" class="signature-button signature-button--ghost" data-track-cta="Signature Remove Logo" (click)="removeLogo()">Remove logo</button>
-        </div>
-        <p class="signature-status" *ngIf="copyMessage">{{ copyMessage }}</p>
-      </div>
-      <aside class="signature-preview">
-        <div class="signature-preview__header">
-          <div>
-            <p class="signature-eyebrow">Live preview</p>
-            <h2>{{ selectedTemplateLabel }}</h2>
-          </div>
-        </div>
-        <div class="signature-preview-card" [style.--signature-accent]="form.controls.accentColor.value" [ngClass]="'signature-preview-card--' + form.controls.template.value">
-          <div class="signature-preview-card__bar"></div>
-          <div class="signature-preview-card__body">
-            <div class="signature-preview-card__identity">
-              <img *ngIf="uploadedLogoDataUrl; else initialsBlock" [src]="uploadedLogoDataUrl" [alt]="uploadedLogoName || 'Uploaded logo'" class="signature-preview-card__logo" />
-              <ng-template #initialsBlock>
-                <div class="signature-preview-card__initials">{{ initials }}</div>
-              </ng-template>
-            </div>
-            <div class="signature-preview-card__content">
-              <div class="signature-preview-card__template">{{ selectedTemplateLabel }}</div>
-              <div class="signature-preview-card__name">{{ form.controls.fullName.value }}</div>
-              <div class="signature-preview-card__meta" [class.signature-preview-card__meta--compact]="(form.controls.title.value.length || 0) > 24 || (form.controls.company.value.length || 0) > 24" [class.signature-preview-card__meta--stacked]="(form.controls.title.value.length || 0) > 30 || (form.controls.company.value.length || 0) > 30 || ((form.controls.title.value.length || 0) + (form.controls.company.value.length || 0)) > 54">
-                <span class="signature-preview-card__role">{{ form.controls.title.value }}</span>
-                <span class="signature-preview-card__separator">•</span>
-                <span class="signature-preview-card__company">{{ form.controls.company.value }}</span>
-              </div>
-              <div class="signature-preview-card__links">
-                <span *ngFor="let link of previewLinks; let last = last">
-                  {{ link }}<span *ngIf="!last" class="signature-preview-card__separator">|</span>
-                </span>
-              </div>
-              <div class="signature-preview-card__tagline">{{ form.controls.tagline.value }}</div>
-              <div class="signature-preview-card__cta" *ngIf="showCta">{{ form.controls.ctaLabel.value }}</div>
-            </div>
-          </div>
-        </div>
-        <div class="signature-install-card">
-          <div class="signature-platforms">
-            <button *ngFor="let guide of platformGuides" type="button" class="signature-platform" [class.active]="activePlatform === guide.key" [attr.data-track-cta]="'Signature Install Guide ' + guide.label" (click)="activePlatform = guide.key">{{ guide.label }}</button>
-          </div>
-          <ol>
-            <li *ngFor="let step of activeGuide.steps">{{ step }}</li>
-          </ol>
-        </div>
-        <div class="signature-code">
-          <div class="signature-code__header">
-            <h3>HTML</h3>
-            <button type="button" class="signature-code__copy" data-track-cta="Signature Code Copy" (click)="copyHtml()">Copy</button>
-            <button type="button" class="signature-code__copy" data-track-cta="Signature Download HTML" (click)="downloadHtml()">Download HTML</button>
-          </div>
-          <pre>{{ codeSnippet }}</pre>
-        </div>
-      </aside>
+<!-- Email Signature (design_handoff_todd_tools 9a laptop, 9b phone). Violet. -->
+<div class="sig" data-track-section="Email Signature Builder">
+  <header class="sig-head">
+    <a class="sig-brand" routerLink="/">
+      <span class="sig-brand__logo"><img src="assets/todd-mark-128.png" alt="" /></span>
+      <span class="sig-brand__title"><span class="sig-brand__todd">TODD </span><span class="sig-brand__name">Email Signature</span></span>
+    </a>
+    <div class="sig-head__actions">
+      <span class="sig-free">Free · no sign-in</span>
+      <app-platform-menu />
     </div>
-  </section>
+  </header>
+
+  <main class="sig-grid">
+    <div class="sig-form-col">
+      <div class="sig-intro">
+        <img class="sig-intro__mascot" src="/outreach/signature-mascot-380.png" alt="" width="190" height="127" />
+        <div>
+          <h1>Email Signature</h1>
+          <p>Build a polished signature fast, then copy the HTML or download it for the email platform you use.</p>
+          <p class="tt-made-by"><a href="https://todd.taliferro.tech" target="_blank" rel="noopener"><span class="tt-made-by__todd"><img src="assets/todd-mark-128.png" alt="" /></span>Powered by <strong>TODD</strong></a><i aria-hidden="true"></i><a href="https://find.taliferro.tech" target="_blank" rel="noopener">Also from us <span class="um-logo" data-app="find" aria-hidden="true"></span><strong>Find</strong></a></p>
+        </div>
+      </div>
+
+      <!-- Phone: one field group at a time (9b) -->
+      <div class="sig-seg sig-seg--tabs" role="tablist" aria-label="Signature fields">
+        <button type="button" *ngFor="let tab of mobileTabs" role="tab" [class.is-on]="mobileTab === tab.key" [attr.aria-selected]="mobileTab === tab.key" (click)="mobileTab = tab.key">{{ tab.label }}</button>
+      </div>
+
+      <form [formGroup]="form" class="sig-form">
+        <section class="sig-group" [class.is-off-m]="mobileTab !== 'you'" aria-labelledby="sig-you">
+          <h2 class="sig-label" id="sig-you">You</h2>
+          <div class="sig-fields">
+            <label><span>Full name</span><input type="text" formControlName="fullName" autocomplete="name" /></label>
+            <label><span>Title</span><input type="text" formControlName="title" autocomplete="organization-title" /></label>
+            <label class="sig-full"><span>Company</span><input type="text" formControlName="company" autocomplete="organization" /></label>
+          </div>
+        </section>
+
+        <section class="sig-group" [class.is-off-m]="mobileTab !== 'contact'" aria-labelledby="sig-contact">
+          <h2 class="sig-label" id="sig-contact">Contact</h2>
+          <div class="sig-fields">
+            <label><span>Phone</span><input type="text" formControlName="phone" autocomplete="tel" /></label>
+            <label><span>Email</span><input type="email" formControlName="email" autocomplete="email" /></label>
+            <label><span>Website</span><input type="text" formControlName="website" autocomplete="url" /></label>
+            <label><span>LinkedIn</span><input type="text" formControlName="linkedin" /></label>
+          </div>
+        </section>
+
+        <section class="sig-group" [class.is-off-m]="mobileTab !== 'look'" aria-labelledby="sig-look">
+          <h2 class="sig-label" id="sig-look">Look</h2>
+          <div class="sig-field">
+            <span class="sig-field__label">Template</span>
+            <div class="sig-seg sig-seg--wrap" role="radiogroup" aria-label="Template" data-track-cta="Signature Template Picker">
+              <button type="button" *ngFor="let template of templates" role="radio" [class.is-on]="form.controls.template.value === template.key" [attr.aria-checked]="form.controls.template.value === template.key" (click)="selectTemplate(template.key)">{{ template.label }}</button>
+            </div>
+            <small class="sig-help">{{ selectedTemplateLabel }}: {{ selectedTemplateDescription }}</small>
+          </div>
+          <div class="sig-field">
+            <span class="sig-field__label">Accent colour</span>
+            <div class="sig-swatches">
+              <button *ngFor="let color of colorPresets" type="button" class="sig-swatch" [style.--swatch]="color" [class.is-on]="form.controls.accentColor.value === color" [attr.aria-label]="'Accent ' + color" [attr.data-track-cta]="'Signature Accent Preset ' + color" (click)="choosePreset(color)"></button>
+              <label class="sig-hex" title="Pick any colour">
+                <input type="color" formControlName="accentColor" aria-label="Pick any accent colour" data-track-cta="Signature Accent Color" />
+                {{ form.controls.accentColor.value | uppercase }}
+              </label>
+            </div>
+          </div>
+          <label class="sig-field"><span class="sig-field__label">Tagline</span><input type="text" formControlName="tagline" /></label>
+        </section>
+
+        <section class="sig-group" [class.is-off-m]="mobileTab !== 'button'" aria-labelledby="sig-button">
+          <div class="sig-toggle-row">
+            <div>
+              <h2 class="sig-label" id="sig-button">Button and logo</h2>
+              <strong>Include a call-to-action button</strong>
+            </div>
+            <label class="sig-toggle"><input type="checkbox" formControlName="includeCta" aria-label="Include a call-to-action button" /><span></span></label>
+          </div>
+          <div class="sig-fields" *ngIf="form.controls.includeCta.value">
+            <label><span>Button label</span><input type="text" formControlName="ctaLabel" /></label>
+            <label><span>Button link</span><input type="text" formControlName="ctaUrl" /></label>
+          </div>
+          <label class="sig-drop" [class.is-active]="isDragActive" [class.is-busy]="uploadInFlight" data-track-cta="Signature Logo Upload" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+            <input type="file" accept="image/*" (change)="onLogoSelected($event)" />
+            <span class="sig-drop__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg></span>
+            <span>
+              <strong>{{ uploadInFlight ? 'Uploading logo…' : (uploadedLogoName || 'Drop logo or browse') }}</strong>
+              <small>PNG, JPG, WEBP, GIF, or SVG up to 2 MB.</small>
+            </span>
+          </label>
+          <button *ngIf="uploadedLogoDataUrl" type="button" class="sig-link" data-track-cta="Signature Remove Logo" (click)="removeLogo()">Remove logo</button>
+        </section>
+      </form>
+    </div>
+
+    <aside class="sig-preview-col" aria-label="Live preview">
+      <div class="sig-preview-head"><span class="sig-label">Live preview</span><span>Updates as you type</span></div>
+      <div class="sig-mail">
+        <div class="sig-mail__meta">
+          <span>To</span><strong>sam&#64;client.com</strong>
+          <span>Subject</span><strong>Following up</strong>
+        </div>
+        <div class="sig-mail__body">
+          <p>Thanks for the time today, Sam. Talk soon.</p>
+          <div class="sig-mail__signature" [innerHTML]="previewHtml"></div>
+        </div>
+      </div>
+
+      <div class="sig-actions">
+        <button type="button" class="sig-btn sig-btn--primary" data-track-cta="Signature Copy" (click)="copySignature()">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>{{ copyMessage === 'Copied' ? 'Copied' : 'Copy signature' }}
+        </button>
+        <button type="button" class="sig-btn" data-track-cta="Signature Download HTML" (click)="downloadHtml()">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download HTML
+        </button>
+        <button type="button" class="sig-btn" [attr.aria-expanded]="showHtml" (click)="showHtml = !showHtml">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg>{{ showHtml ? 'Hide HTML' : 'View HTML' }}
+        </button>
+      </div>
+      <p class="sig-status" role="status" *ngIf="copyMessage && copyMessage !== 'Copied'">{{ copyMessage }}</p>
+
+      <div class="sig-code" *ngIf="showHtml">
+        <div class="sig-code__head"><span class="sig-label">HTML</span><button type="button" class="sig-link" data-track-cta="Signature Code Copy" (click)="copyHtml()">Copy HTML</button></div>
+        <pre>{{ codeSnippet }}</pre>
+      </div>
+
+      <section class="sig-install" aria-labelledby="sig-install-title">
+        <h2 id="sig-install-title">Add it to your mail app</h2>
+        <div class="sig-seg" role="tablist" aria-label="Mail app">
+          <button type="button" *ngFor="let guide of platformGuides" role="tab" [class.is-on]="activePlatform === guide.key" [attr.aria-selected]="activePlatform === guide.key" [attr.data-track-cta]="'Signature Install Guide ' + guide.label" (click)="activePlatform = guide.key">{{ guide.label }}</button>
+        </div>
+        <ol class="sig-steps">
+          <li *ngFor="let step of activeGuide.steps; let i = index"><span class="sig-num">{{ i + 1 }}</span><span>{{ step }}</span></li>
+        </ol>
+      </section>
+    </aside>
+  </main>
+
+  <!-- Phone: copy is always within reach (9b) -->
+  <div class="sig-mbar">
+    <button type="button" class="sig-btn sig-btn--primary" (click)="copySignature()">{{ copyMessage === 'Copied' ? 'Copied' : 'Copy signature' }}</button>
+    <button type="button" class="sig-mbar__dl" (click)="downloadHtml()" aria-label="Download HTML"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></button>
+  </div>
+
+  <footer class="sig-foot">
+    <span><a routerLink="/help">Help</a><i aria-hidden="true">·</i><a routerLink="/about">About</a></span>
+    <span>Taliferro Tech, LLC</span>
+  </footer>
 </div>

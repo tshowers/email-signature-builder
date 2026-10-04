@@ -1,6 +1,6 @@
 {
   "name": "email-signature-builder",
-  "version": "2026.10.1-build.2",
+  "version": "2026.10.4-build.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

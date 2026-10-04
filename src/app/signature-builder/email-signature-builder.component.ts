@@ -2,6 +2,9 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, PLATFORM_ID, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
+import { PlatformMenuComponent } from '../shared/platform-menu/platform-menu.component';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -17,7 +20,7 @@ interface PlatformGuide {
 @Component( {
   selector: 'app-email-signature-builder',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink, PlatformMenuComponent],
   templateUrl: './email-signature-builder.component.html',
   styleUrl: './email-signature-builder.component.css',
 } )
@@ -26,6 +29,7 @@ export class EmailSignatureBuilderComponent {
   private readonly http = inject( HttpClient );
   private readonly platformId = inject( PLATFORM_ID );
   private readonly isBrowser = isPlatformBrowser( this.platformId );
+  private readonly sanitizer = inject( DomSanitizer );
 
   readonly form = this.fb.nonNullable.group( {
     fullName: ['Jane Doe', [Validators.required]],
@@ -58,7 +62,7 @@ export class EmailSignatureBuilderComponent {
       key: 'gmail',
       label: 'Gmail',
       steps: [
-        'Click Copy HTML or Download HTML.',
+        'Choose Copy signature above.',
         'Open Gmail and choose See all settings.',
         'Scroll to Signature and create a new signature.',
         'Paste the signature and save changes.',
@@ -68,7 +72,7 @@ export class EmailSignatureBuilderComponent {
       key: 'outlook',
       label: 'Outlook',
       steps: [
-        'Click Copy HTML or Download HTML.',
+        'Choose Copy signature above.',
         'Open Outlook signature settings.',
         'Create a new signature and paste it in.',
         'Save and send yourself a test email.',
@@ -92,7 +96,7 @@ export class EmailSignatureBuilderComponent {
       key: 'yahoo',
       label: 'Yahoo Mail',
       steps: [
-        'Click Copy HTML.',
+        'Choose Copy signature above.',
         'Open More Settings then Writing email.',
         'Enable the signature and paste it.',
         'Send a test email to confirm it looks right.',
@@ -101,6 +105,14 @@ export class EmailSignatureBuilderComponent {
   ];
 
   activePlatform: PlatformKey = 'gmail';
+  /** View HTML shows the raw code; it's hidden by default (design 9a). */
+  showHtml = false;
+  /** Phone: which field group shows below the preview (design 9b). */
+  mobileTab: 'you' | 'contact' | 'look' | 'button' = 'you';
+  readonly mobileTabs: Array<{ key: 'you' | 'contact' | 'look' | 'button'; label: string }> = [
+    { key: 'you', label: 'You' }, { key: 'contact', label: 'Contact' }, { key: 'look', label: 'Look' }, { key: 'button', label: 'Button' },
+  ];
+  private previewCache = { html: '', safe: '' as SafeHtml };
   copyMessage = '';
   uploadedLogoDataUrl = '';
   uploadedLogoName = '';
@@ -139,6 +151,52 @@ export class EmailSignatureBuilderComponent {
 
   get codeSnippet (): string {
     return this.buildHtml();
+  }
+
+  /** The real signature, exactly as it will be copied. Every value in it is
+   *  escaped and every link limited to web, mail and phone addresses, so it's
+   *  trusted as-is (Angular would otherwise strip its inline styles). Cached
+   *  so the preview isn't rewritten on every change-detection pass. */
+  get previewHtml (): SafeHtml {
+    const html = this.buildHtml();
+    if ( html !== this.previewCache.html ) {
+      this.previewCache = { html, safe: this.sanitizer.bypassSecurityTrustHtml( html ) };
+    }
+    return this.previewCache.safe;
+  }
+
+  selectTemplate ( key: TemplateKey ): void {
+    this.form.controls.template.setValue( key );
+  }
+
+  /** Copies the signature as formatted HTML, so it pastes straight into a
+   *  mail app's signature editor (with a plain-text fallback). */
+  async copySignature (): Promise<void> {
+    if ( !this.isBrowser ) return;
+    const html = this.buildHtml();
+    try {
+      if ( typeof ClipboardItem !== 'undefined' && navigator.clipboard?.write ) {
+        const plain = new DOMParser().parseFromString( html, 'text/html' ).body.innerText.trim();
+        await navigator.clipboard.write( [ new ClipboardItem( {
+          'text/html': new Blob( [ html ], { type: 'text/html' } ),
+          'text/plain': new Blob( [ plain ], { type: 'text/plain' } ),
+        } ) ] );
+      } else {
+        await navigator.clipboard.writeText( html );
+      }
+      this.flash( 'Copied' );
+    } catch {
+      this.flash( 'Copy failed. Try Download HTML.' );
+    }
+  }
+
+  private flashTimer: ReturnType<typeof setTimeout> | null = null;
+
+  /** A short-lived status message ("Copied" for 2 seconds). */
+  private flash ( message: string ): void {
+    this.copyMessage = message;
+    if ( this.flashTimer ) clearTimeout( this.flashTimer );
+    this.flashTimer = setTimeout( () => { this.copyMessage = ''; }, 2000 );
   }
 
   get showCta (): boolean {
@@ -197,7 +255,7 @@ export class EmailSignatureBuilderComponent {
 
     try {
       await navigator.clipboard.writeText( this.codeSnippet );
-      this.copyMessage = 'HTML copied.';
+      this.flash( 'HTML copied' );
     } catch {
       this.copyMessage = 'Copy failed.';
     }
@@ -226,12 +284,13 @@ ${this.codeSnippet}
     anchor.download = 'email-signature.html';
     anchor.click();
     window.URL.revokeObjectURL( url );
-    this.copyMessage = 'HTML downloaded.';
+    this.flash( 'HTML downloaded' );
   }
 
   private buildHtml (): string {
     const value = this.form.getRawValue();
-    const accent = value.accentColor;
+    // Only a real hex colour reaches the HTML.
+    const accent = /^#[0-9a-f]{6}$/i.test( value.accentColor ) ? value.accentColor : '#0f766e';
     const fullName = this.escapeHtml( this.sanitizeSignatureText( value.fullName ) );
     const title = this.escapeHtml( this.sanitizeSignatureText( value.title ) );
     const company = this.escapeHtml( this.sanitizeSignatureText( value.company ) );
@@ -254,7 +313,9 @@ ${this.codeSnippet}
     // End inserted block
     const tagline = this.escapeHtml( this.sanitizeSignatureText( value.tagline ) );
     const ctaLabel = this.escapeHtml( this.sanitizeSignatureText( value.ctaLabel ) );
-    const ctaUrl = this.escapeAttribute( this.sanitizeSignatureText( value.ctaUrl ) );
+    const rawCtaUrl = this.sanitizeSignatureText( value.ctaUrl );
+    // Web, mail and phone links only: no javascript: or data: URLs.
+    const ctaUrl = this.escapeAttribute( /^(https?:|mailto:|tel:)/i.test( rawCtaUrl ) ? rawCtaUrl : `https://${rawCtaUrl.replace( /^[a-z]+:/i, '' )}` );
     const links = [
       phone ? ( phoneHref ? `<a href="${phoneHref}" style="color:#334155;text-decoration:none;">${phone}</a>` : phone ) : '',
       email ? ( emailHref ? `<a href="${emailHref}" style="color:#334155;text-decoration:none;">${email}</a>` : email ) : '',

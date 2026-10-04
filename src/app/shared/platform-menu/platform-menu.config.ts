@@ -4,7 +4,6 @@ import { MenuAppConfig } from '@taliferro/ui/platform/universal-menu.model';
 export const PLATFORM_MENU_CONFIG: MenuAppConfig = {
   app: 'email-signature',
   name: 'Email Signature',
-  logo: 'assets/find/entities/email-signature-builder/logo.png',
   items: [
     { label: 'Build a signature', icon: 'pen', route: '/' },
   ],

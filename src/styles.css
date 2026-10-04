@@ -1,5 +1,7 @@
+@import "@taliferro/ui/styles/tokens.css";
 @import "@taliferro/ui/styles/controls.css";
 @import "@taliferro/ui/styles/universal-menu.css";
+@import "@taliferro/ui/styles/product-pages.css";
 
 /* You can add global styles to this file, and also import other style files */
 
@@ -7,30 +9,12 @@
   box-sizing: border-box;
 }
 
+/* Find family tokens (tokens.css); they handle dark mode. */
 body {
   margin: 0;
-  font-family: 'Segoe UI', 'Inter', sans-serif;
-  background: #f8fafc;
-  color: #0f172a;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
-  }
-
-  html,
-  body {
-    min-height: 100%;
-    background: #0b1119;
-    color: #f8fafc;
-  }
-
-  app-root {
-    display: block;
-    min-height: 100vh;
-    background: #0b1119;
-  }
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
 }
 
 /* ─── TODD Global Field Styles ───────────────────────────────────────────────
