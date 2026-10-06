@@ -29,12 +29,19 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
   <link rel="apple-touch-icon" sizes="512x512" href="/favicon-512.png">
   <!-- Google Analytics 4 / Email Signature Builder web stream -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-BR0EFKQV8V"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-BR0EFKQV8V');
+    // No GA on localhost: local dev and the Cypress runs in deploy.sh otherwise
+    // show up in GA as thousands of one-second "users".
+    if (!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)) {
+      var gaTag = document.createElement('script');
+      gaTag.async = true;
+      gaTag.src = 'https://www.googletagmanager.com/gtag/js?id=G-BR0EFKQV8V';
+      document.head.appendChild(gaTag);
+      gtag('js', new Date());
+      gtag('config', 'G-BR0EFKQV8V');
+    }
   </script>
 </head>
 
