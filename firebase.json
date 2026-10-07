@@ -2,6 +2,7 @@
   "hosting": {
     "site": "taliferro-email-signature-builder",
     "public": "dist/email-signature-builder/browser",
+    "trailingSlash": false,
     "ignore": [
       "firebase.json",
       "**/.*",
