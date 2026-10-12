@@ -7,6 +7,8 @@ import { RouterLink } from '@angular/router';
 import { PlatformMenuComponent } from '../shared/platform-menu/platform-menu.component';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { SiteFooterComponent } from '../shared/site-footer/site-footer.component';
+import { AlsoFromUsComponent } from '../shared/also-from-us/also-from-us.component';
 
 type PlatformKey = 'gmail' | 'outlook' | 'apple-mail' | 'yahoo';
 type TemplateKey = 'clean' | 'centered' | 'sidebar' | 'minimal' | 'spotlight';
@@ -20,7 +22,7 @@ interface PlatformGuide {
 @Component( {
   selector: 'app-email-signature-builder',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, PlatformMenuComponent],
+  imports: [ AlsoFromUsComponent, SiteFooterComponent, CommonModule, ReactiveFormsModule, RouterLink, PlatformMenuComponent],
   templateUrl: './email-signature-builder.component.html',
   styleUrl: './email-signature-builder.component.css',
 } )

@@ -2,7 +2,7 @@
    (tokens.css); they handle dark mode. Email Signature is violet. */
 :host { display: block; }
 
-.sig { min-height: 100vh; background: var(--bg); color: var(--text); font-family: var(--font); }
+.sig { display: flex; flex-direction: column; min-height: 100vh; min-height: 100dvh; background: var(--bg); color: var(--text); font-family: var(--font); }
 
 /* Header */
 .sig-head { display: flex; align-items: center; gap: 12px; padding: 20px 40px; }
@@ -140,10 +140,6 @@
 
 .sig-mbar { display: none; }
 
-.sig-foot { display: flex; justify-content: space-between; gap: 12px; padding: 16px 40px 28px; color: var(--muted); font-size: 13px; }
-.sig-foot a { color: var(--muted); text-decoration: none; }
-.sig-foot a:hover { color: var(--text); }
-.sig-foot i { margin: 0 8px; font-style: normal; }
 
 /* Narrower laptops: the preview column shrinks before the layout stacks. */
 @media (max-width: 1180px) {
@@ -180,5 +176,6 @@
     box-shadow: 0 -1px 0 var(--surface2);
   }
   .sig-mbar__dl { display: grid; place-items: center; flex: none; width: 52px; height: 52px; min-height: 0; margin: 0; padding: 0; border: 0; border-radius: 50%; background: var(--surface); color: var(--text); cursor: pointer; }
-  .sig-foot { padding: 8px 16px 100px; }
+  /* Clears the fixed bottom bar. */
+  app-site-footer { padding-bottom: 76px; }
 }
