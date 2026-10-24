@@ -7,8 +7,8 @@
 /* Header */
 .sig-head { display: flex; align-items: center; gap: 12px; padding: 20px 40px; }
 .sig-brand { display: flex; align-items: center; gap: 12px; min-width: 0; color: var(--text); text-decoration: none; }
-.sig-brand__logo { display: grid; place-items: center; flex: none; width: 36px; height: 36px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 1px var(--surface2); }
-.sig-brand__logo img { width: 26px; height: 26px; object-fit: contain; }
+.sig-brand__logo { display: grid; place-items: center; flex: none; width: 36px; height: 36px; }
+.sig-brand__logo img { width: 36px; height: 36px; object-fit: contain; }
 .sig-brand__title { font-size: 20px; font-weight: 700; letter-spacing: -.02em; white-space: nowrap; }
 .sig-brand__name { font-weight: 500; color: var(--muted); }
 .sig-head__actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
