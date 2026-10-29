@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://signature.taliferro.tech/sitemap.xml
+Sitemap: https://signature.16ahead.com/sitemap.xml
