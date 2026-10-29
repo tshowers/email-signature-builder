@@ -4,9 +4,9 @@
 
 # Email Signature Builder
 
-A free, no-account-required tool for building a polished HTML email signature — pick a template, add your logo, and copy or download the HTML. Built by [Taliferro Tech](https://taliferro.com) as part of the [TODD](https://todd.taliferro.tech) product family.
+A free, no-account-required tool for building a polished HTML email signature — pick a template, add your logo, and copy or download the HTML. Built by [Taliferro Tech](https://taliferro.com) as part of the [16Ahead](https://app.16ahead.com) product family.
 
-**Live:** [signature.taliferro.tech](https://signature.taliferro.tech)
+**Live:** [signature.16ahead.com](https://signature.16ahead.com)
 
 ## Features
 
